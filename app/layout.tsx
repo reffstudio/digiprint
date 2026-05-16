@@ -14,9 +14,33 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
-  title: 'DIGIPRINT | Imprenta Digital Premium en Tijuana',
-  description: 'El socio secreto de las marcas mas grandes de Tijuana. Produccion de alta fidelidad, escala industrial y precision impecable.',
-  generator: 'v0.app',
+  title: 'DigiPrint – Impresión Digital y Gran Formato en Tijuana',
+  description:
+    'La infraestructura detrás de las marcas más grandes de Tijuana. Alta fidelidad en stickers, lonas, posters y branding corporativo.',
+  openGraph: {
+    title: 'DigiPrint – Impresión Digital y Gran Formato',
+    description:
+      'La infraestructura detrás de las marcas más grandes de Tijuana. Calidad industrial a un clic de distancia.',
+    url: 'https://www.digiprint.mx',
+    siteName: 'DigiPrint',
+    images: [
+      {
+        url: '/opengraph-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'DigiPrint Banner Comercial',
+      },
+    ],
+    locale: 'es_MX',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'DigiPrint – Impresión Digital Premium',
+    description:
+      'Impresión de alta fidelidad para marcas que dejan huella en Tijuana.',
+    images: ['/opengraph-image.png'],
+  },
   icons: {
     icon: [
       { url: '/favicon.ico', sizes: '32x32' },
