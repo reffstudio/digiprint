@@ -109,7 +109,7 @@ export function Footer() {
               href="http://app.digiprint.mx"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-xs text-zinc-500 hover:text-zinc-300 transition-colors duration-200 mt-4 block text-center"
+              className="mt-4 inline-block rounded-full bg-[#000066] px-5 py-2 text-xs font-medium text-white hover:bg-[#000055] transition-colors duration-200"
             >
               Acceso CRM
             </a>
