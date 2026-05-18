@@ -97,7 +97,7 @@ export function Footer() {
           {/* Dark overlay */}
           <div className="absolute inset-0 bg-[#000066]/40" />
           {/* Logo centered */}
-          <div className="absolute inset-0 flex items-center justify-center">
+          <div className="absolute inset-0 flex flex-col items-center justify-center">
             <Image
               src="/logo-digiprint.svg"
               alt="DIGIPRINT"
@@ -105,6 +105,14 @@ export function Footer() {
               height={60}
               className="brightness-0 invert"
             />
+            <a
+              href="http://app.digiprint.mx"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-xs text-zinc-500 hover:text-zinc-300 transition-colors duration-200 mt-4 block text-center"
+            >
+              Acceso CRM
+            </a>
           </div>
         </motion.div>
 
