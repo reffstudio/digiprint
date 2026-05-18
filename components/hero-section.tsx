@@ -46,6 +46,10 @@ export function HeroSection() {
 
   return (
     <>
+      <div className="fixed top-4 right-4 md:top-6 md:right-8 lg:right-12 z-40">
+        <SlideToQuote onComplete={() => setIsModalOpen(true)} />
+      </div>
+
       <section className="h-screen bg-white flex flex-col overflow-hidden">
         {/* Top White Section with Logo, Headline and Description */}
         <div className="bg-white px-4 md:px-8 lg:px-12 pt-4 md:pt-6 pb-4 md:pb-6 shrink-0">
@@ -54,7 +58,7 @@ export function HeroSection() {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="flex items-center justify-between mb-4 md:mb-6 lg:mb-8"
+            className="mb-4 md:mb-6 lg:mb-8"
           >
             <Image
               src="/logo-digiprint.svg"
@@ -64,7 +68,6 @@ export function HeroSection() {
               className="w-28 md:w-36 lg:w-44 h-auto"
               priority
             />
-            <SlideToQuote onComplete={() => setIsModalOpen(true)} />
           </motion.div>
 
           {/* Main Content Grid */}
