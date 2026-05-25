@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Inter, Geist_Mono } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
+import { GoogleTagManager } from '@next/third-parties/google'
 import './globals.css'
 
 const inter = Inter({ 
@@ -59,6 +60,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es" className="bg-background">
+      <GoogleTagManager gtmId="GTM-5H5FLWHW" />
       <body className={`${inter.variable} ${geistMono.variable} font-sans antialiased`}>
         {children}
         <Analytics />
