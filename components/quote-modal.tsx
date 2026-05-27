@@ -19,13 +19,14 @@ const QUOTE_WEBHOOK_URL =
   "https://script.google.com/macros/s/AKfycbw07FyWO8iV6I0vRA3S_RqSCBPV95Oxm9e08DtTXr83pTza35Dn8ujg8VwKypigJKDz/exec"
 
 const projectTypes = [
-  "Vinil Industrial y Stickers",
-  "Gran Formato y Lonas",
-  "Rotulación Vehicular",
-  "Señalética Arquitectónica",
-  "Posters y Fine-Art Giclée",
-  "Branding Corporativo Integral",
-  "Proyecto Personalizado",
+  "DTF",
+  "Lonas",
+  "Rotulación",
+  "Stickers",
+  "Branding Vehicular",
+  "Gran Formato",
+  "Prendas personalizadas",
+  "Otro",
 ]
 
 const volumeOptions = [

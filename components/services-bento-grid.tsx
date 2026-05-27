@@ -4,34 +4,58 @@ import { useCallback, useEffect, useState } from "react"
 import Image from "next/image"
 import { motion } from "framer-motion"
 import {
+  Flame,
   ImageIcon,
-  Sticker,
   PanelTop,
+  Sticker,
   CarFront,
+  Maximize2,
+  Shirt,
+  Sparkles,
   ChevronLeft,
   ChevronRight,
 } from "lucide-react"
 
 const services = [
   {
-    title: "Vinil Industrial y Stickers",
-    description: "Corte de precisión para etiquetas, calcomanías y producción de alto volumen.",
-    icon: Sticker,
+    title: "DTF",
+    description: "Transfer textil de alta resolución para producción rápida y a la medida.",
+    icon: Flame,
   },
   {
-    title: "Gran Formato y Lonas",
-    description: "Lonas, banners y vallas con color de alta fidelidad para exteriores e interiores.",
+    title: "Lonas",
+    description: "Lonas y banners de alta fidelidad para exteriores e interiores.",
     icon: ImageIcon,
   },
   {
-    title: "Rotulación Vehicular",
-    description: "Wrap completo y rotulado parcial para flotillas, vans, food trucks y unidades comerciales.",
+    title: "Rotulación",
+    description: "Rótulos, letreros y señalética corporativa instalada llave en mano.",
+    icon: PanelTop,
+  },
+  {
+    title: "Stickers",
+    description: "Calcomanías y etiquetas con corte de precisión y producción de alto volumen.",
+    icon: Sticker,
+  },
+  {
+    title: "Branding Vehicular",
+    description: "Wrap completo y rotulado parcial para flotillas, vans, food trucks y unidades.",
     icon: CarFront,
   },
   {
-    title: "Señalética Arquitectónica",
-    description: "Letreros, directorios y señalización corporativa instalada llave en mano.",
-    icon: PanelTop,
+    title: "Gran Formato",
+    description: "Impresión a escala industrial con color preciso y acabados premium.",
+    icon: Maximize2,
+  },
+  {
+    title: "Prendas personalizadas",
+    description: "Playeras, uniformes y merchandising con sublimación, DTF y bordado.",
+    icon: Shirt,
+  },
+  {
+    title: "Otro",
+    description: "Proyectos especiales y soluciones a medida para tu necesidad puntual.",
+    icon: Sparkles,
   },
 ]
 
