@@ -3,6 +3,7 @@
 import { motion } from "framer-motion"
 import Image from "next/image"
 import { Phone, Mail } from "lucide-react"
+import { LegalLinks } from "./legal-modals"
 
 export function Footer() {
   return (
@@ -75,6 +76,17 @@ export function Footer() {
             <Mail className="w-4 h-4" />
             <span>hola@digiprint.mx</span>
           </a>
+        </motion.div>
+
+        {/* Legal Links */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.25 }}
+          className="mb-10"
+        >
+          <LegalLinks />
         </motion.div>
 
         {/* Bottom Image Container */}
