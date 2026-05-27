@@ -8,35 +8,31 @@ import { SlideToQuote } from "./slide-to-quote"
 import { QuoteModal } from "./quote-modal"
 
 const logos = [
-  { name: "Copachisa", letters: "CP" },
-  { name: "CW", letters: "CW" },
-  { name: "Hospital Infantil de las Californias", letters: "HI" },
-  { name: "El Gallito", letters: "EG" },
-  { name: "Rooster", letters: "RS" },
-  { name: "Agredanos", letters: "AG" },
-  { name: "Interceramic", letters: "IC" },
-  { name: "Gandhi", letters: "GD" },
-  { name: "SuKarne", letters: "SK" },
-  { name: "Visada MX", letters: "VM" },
-  { name: "Ink Agency", letters: "IA" },
-  { name: "CSI Creative", letters: "CS" },
-  { name: "G Global", letters: "GG" },
-  { name: "Alfa K9", letters: "K9" },
+  { name: "Copachisa", src: "/clients/copachisa.jpg" },
+  { name: "CW", src: "/clients/cw.png" },
+  { name: "Hospital Infantil de las Californias", src: "/clients/hospital-idlc.jpg" },
+  { name: "El Rooster", src: "/clients/el-rooster.jpg" },
+  { name: "Agredanos", src: "/clients/agredanos.jpg" },
+  { name: "Interceramic", src: "/clients/interceramic.png" },
+  { name: "Gandhi", src: "/clients/gandhi.jpg" },
+  { name: "SuKarne", src: "/clients/sukarne.jpg" },
+  { name: "Visada MX", src: "/clients/visada-mx.png" },
+  { name: "Ink Agency", src: "/clients/ink-agency.jpg" },
+  { name: "CSI Creative", src: "/clients/csi-creative.jpg" },
+  { name: "G Global", src: "/clients/g-global.png" },
+  { name: "Alfa K9", src: "/clients/alfa-k9.jpg" },
 ]
 
-function LogoPlaceholder({ name, letters }: { name: string; letters: string }) {
+function ClientLogo({ name, src }: { name: string; src: string }) {
   return (
-    <div className="group flex items-center justify-center h-8 md:h-10 px-3 md:px-4 grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-300 cursor-default">
-      <div className="flex items-center gap-1.5 md:gap-2">
-        <div className="w-6 h-6 md:w-8 md:h-8 rounded-md bg-[#000066]/10 group-hover:bg-[#ff0000]/20 flex items-center justify-center transition-colors duration-300">
-          <span className="text-[10px] md:text-xs font-bold text-[#000066]/60 group-hover:text-[#ff0000] transition-colors duration-300">
-            {letters}
-          </span>
-        </div>
-        <span className="text-xs md:text-sm font-semibold text-[#000066]/60 group-hover:text-[#000066] transition-colors duration-300 whitespace-nowrap">
-          {name}
-        </span>
-      </div>
+    <div className="group relative flex items-center justify-center h-10 md:h-12 w-24 md:w-32 shrink-0 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300">
+      <Image
+        src={src}
+        alt={name}
+        fill
+        sizes="(max-width: 768px) 96px, 128px"
+        className="object-contain"
+      />
     </div>
   )
 }
@@ -157,15 +153,15 @@ export function HeroSection() {
             {/* Marquee */}
             <div className="flex animate-marquee">
               {/* First set */}
-              <div className="flex items-center gap-4 md:gap-6 shrink-0">
+              <div className="flex items-center gap-6 md:gap-10 shrink-0">
                 {logos.map((logo, index) => (
-                  <LogoPlaceholder key={`first-${index}`} name={logo.name} letters={logo.letters} />
+                  <ClientLogo key={`first-${index}`} name={logo.name} src={logo.src} />
                 ))}
               </div>
               {/* Duplicate for seamless loop */}
-              <div className="flex items-center gap-4 md:gap-6 shrink-0 ml-4 md:ml-6">
+              <div className="flex items-center gap-6 md:gap-10 shrink-0 ml-6 md:ml-10">
                 {logos.map((logo, index) => (
-                  <LogoPlaceholder key={`second-${index}`} name={logo.name} letters={logo.letters} />
+                  <ClientLogo key={`second-${index}`} name={logo.name} src={logo.src} />
                 ))}
               </div>
             </div>
