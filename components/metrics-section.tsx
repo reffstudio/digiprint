@@ -43,7 +43,7 @@ function AnimatedNumber({ value, suffix, unit }: { value: number; suffix: string
   }, [count, value])
 
   return (
-    <span className="flex items-baseline gap-1">
+    <span className="inline-flex items-baseline justify-center gap-1">
       <motion.span>{rounded}</motion.span>
       {suffix && <span className="text-primary">{suffix}</span>}
       {unit && <span className="text-2xl md:text-3xl ml-1 text-muted-foreground">{unit}</span>}
@@ -73,7 +73,7 @@ export function MetricsSection() {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12 items-stretch">
           {stats.map((stat, index) => {
             const Icon = stat.icon
             return (
@@ -83,19 +83,19 @@ export function MetricsSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="text-center group"
+                className="group h-full"
               >
-                <div className="glass rounded-2xl p-8 hover:border-primary/30 transition-all duration-300">
+                <div className="glass h-full flex flex-col items-center justify-between text-center rounded-2xl p-8 hover:border-primary/30 transition-all duration-300">
                   <div className="mb-6 flex justify-center">
                     <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors duration-300">
                       <Icon className="w-8 h-8 text-primary" />
                     </div>
                   </div>
-                  
-                  <div className="text-4xl md:text-5xl font-bold mb-2">
+
+                  <div className="text-4xl md:text-5xl font-bold mb-2 flex items-baseline justify-center">
                     <AnimatedNumber value={stat.value} suffix={stat.suffix} unit={stat.unit} />
                   </div>
-                  
+
                   <p className="text-muted-foreground font-medium">
                     {stat.label}
                   </p>
