@@ -4,14 +4,10 @@ import { useCallback, useEffect, useState } from "react"
 import Image from "next/image"
 import { motion } from "framer-motion"
 import {
-  Scissors,
   ImageIcon,
-  Frame,
-  Building2,
   Sticker,
   PanelTop,
   CarFront,
-  Shirt,
   ChevronLeft,
   ChevronRight,
 } from "lucide-react"
@@ -36,26 +32,6 @@ const services = [
     title: "Señalética Arquitectónica",
     description: "Letreros, directorios y señalización corporativa instalada llave en mano.",
     icon: PanelTop,
-  },
-  {
-    title: "Posters y Fine-Art Giclée",
-    description: "Impresión calidad museo en sustratos premium para campañas, retail y galerías.",
-    icon: Frame,
-  },
-  {
-    title: "Branding Corporativo Integral",
-    description: "Producción de identidad: tarjetas, papelería, displays y experiencia de marca.",
-    icon: Building2,
-  },
-  {
-    title: "Microperforado y Window Graphics",
-    description: "Aplicaciones en vidrio, escaparates y oficinas con visibilidad de un solo sentido.",
-    icon: Scissors,
-  },
-  {
-    title: "Textiles y Merchandising",
-    description: "DTF, sublimación y bordado para uniformes, playeras y artículos promocionales.",
-    icon: Shirt,
   },
 ]
 
