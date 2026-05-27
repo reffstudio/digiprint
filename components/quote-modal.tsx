@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion"
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { Textarea } from "@/components/ui/textarea"
 import {
   Select,
   SelectContent,
@@ -15,14 +16,16 @@ import { ArrowRight, CheckCircle2, X } from "lucide-react"
 
 const projectTypes = [
   "Vinil Industrial y Stickers",
-  "Impresion Gran Formato",
-  "Impresiones Fine-Art y Giclee",
-  "Paquete de Branding Corporativo",
+  "Gran Formato y Lonas",
+  "Rotulación Vehicular",
+  "Señalética Arquitectónica",
+  "Posters y Fine-Art Giclée",
+  "Branding Corporativo Integral",
   "Proyecto Personalizado",
 ]
 
 const volumeOptions = [
-  "Pequeno (Menos de 50 m2)",
+  "Pequeño (Menos de 50 m2)",
   "Mediano (50-200 m2)",
   "Grande (200-500 m2)",
   "Industrial (500+ m2)",
@@ -33,16 +36,50 @@ interface QuoteModalProps {
   onClose: () => void
 }
 
+type FormState = {
+  nombreEmpresa: string
+  correoElectronico: string
+  numeroTelefono: string
+  tipoProyecto: string
+  volumenEstimado: string
+  comentarios: string
+}
+
+const initialFormState: FormState = {
+  nombreEmpresa: "",
+  correoElectronico: "",
+  numeroTelefono: "",
+  tipoProyecto: "",
+  volumenEstimado: "",
+  comentarios: "",
+}
+
 export function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const [form, setForm] = useState<FormState>(initialFormState)
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
+
+    const payload = {
+      "Tiempo de captura": new Date().toISOString(),
+      "Nombre / Empresa": form.nombreEmpresa,
+      "Correo Electrónico": form.correoElectronico,
+      "Número de teléfono": form.numeroTelefono,
+      "Tipo de proyecto": form.tipoProyecto,
+      "Volumen Estimado": form.volumenEstimado,
+      "Comentarios": form.comentarios,
+    }
+
+    // TODO: enviar `payload` al endpoint conectado al Google Sheet
+    console.log("Quote submission", payload)
+
     setIsSubmitted(true)
   }
 
   const handleClose = () => {
     setIsSubmitted(false)
+    setForm(initialFormState)
     onClose()
   }
 
@@ -72,6 +109,7 @@ export function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
               <button
                 onClick={handleClose}
                 className="absolute top-4 right-4 w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors"
+                aria-label="Cerrar"
               >
                 <X className="w-5 h-5 text-gray-600" />
               </button>
@@ -82,7 +120,7 @@ export function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
                   Cotiza tu Proyecto
                 </h2>
                 <p className="text-[#000066]/60 text-sm md:text-base">
-                  Solicita una sesion informativa personalizada con nuestros especialistas
+                  Solicita una sesión informativa personalizada con nuestros especialistas
                 </p>
               </div>
 
@@ -97,7 +135,7 @@ export function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
                   </div>
                   <h3 className="text-xl md:text-2xl font-bold text-[#000066] mb-2">Solicitud Recibida</h3>
                   <p className="text-[#000066]/60 text-sm md:text-base mb-6">
-                    Nuestro equipo te contactara en las proximas 24 horas con una sesion informativa personalizada.
+                    Nuestro equipo te contactará en las próximas 24 horas con una sesión informativa personalizada.
                   </p>
                   <Button
                     onClick={handleClose}
@@ -108,60 +146,76 @@ export function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
                 </motion.div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-4 md:space-y-5">
-                  {/* Name / Company */}
+                  {/* Nombre / Empresa */}
                   <div>
-                    <label htmlFor="company" className="block text-sm font-medium mb-2 text-[#000066]">
-                      Nombre Completo / Empresa
+                    <label htmlFor="nombre-empresa" className="block text-sm font-medium mb-2 text-[#000066]">
+                      Nombre / Empresa
                     </label>
                     <Input
-                      id="company"
+                      id="nombre-empresa"
+                      name="Nombre / Empresa"
                       type="text"
                       placeholder="Ingresa tu nombre o empresa"
                       required
+                      value={form.nombreEmpresa}
+                      onChange={(e) => setForm({ ...form, nombreEmpresa: e.target.value })}
                       className="bg-gray-50 border-gray-200 focus:border-[#ff0000] h-12 rounded-xl"
                     />
                   </div>
 
-                  {/* Email */}
+                  {/* Correo Electrónico */}
                   <div>
-                    <label htmlFor="email" className="block text-sm font-medium mb-2 text-[#000066]">
-                      Correo Electronico
+                    <label htmlFor="correo-electronico" className="block text-sm font-medium mb-2 text-[#000066]">
+                      Correo Electrónico
                     </label>
                     <Input
-                      id="email"
+                      id="correo-electronico"
+                      name="Correo Electrónico"
                       type="email"
                       placeholder="tu@email.com"
                       required
+                      value={form.correoElectronico}
+                      onChange={(e) => setForm({ ...form, correoElectronico: e.target.value })}
                       className="bg-gray-50 border-gray-200 focus:border-[#ff0000] h-12 rounded-xl"
                     />
                   </div>
 
-                  {/* Phone */}
+                  {/* Número de teléfono */}
                   <div>
-                    <label htmlFor="phone" className="block text-sm font-medium mb-2 text-[#000066]">
-                      Numero de Telefono
+                    <label htmlFor="numero-telefono" className="block text-sm font-medium mb-2 text-[#000066]">
+                      Número de teléfono
                     </label>
                     <Input
-                      id="phone"
+                      id="numero-telefono"
+                      name="Número de teléfono"
                       type="tel"
                       placeholder="+52 664 123 4567"
                       required
+                      value={form.numeroTelefono}
+                      onChange={(e) => setForm({ ...form, numeroTelefono: e.target.value })}
                       className="bg-gray-50 border-gray-200 focus:border-[#ff0000] h-12 rounded-xl"
                     />
                   </div>
 
-                  {/* Project Type */}
+                  {/* Tipo de proyecto */}
                   <div>
-                    <label htmlFor="project-type" className="block text-sm font-medium mb-2 text-[#000066]">
-                      Tipo de Proyecto
+                    <label htmlFor="tipo-proyecto" className="block text-sm font-medium mb-2 text-[#000066]">
+                      Tipo de proyecto
                     </label>
-                    <Select required>
-                      <SelectTrigger className="bg-gray-50 border-gray-200 focus:border-[#ff0000] h-12 rounded-xl">
+                    <Select
+                      required
+                      value={form.tipoProyecto}
+                      onValueChange={(value) => setForm({ ...form, tipoProyecto: value })}
+                    >
+                      <SelectTrigger
+                        id="tipo-proyecto"
+                        className="bg-gray-50 border-gray-200 focus:border-[#ff0000] h-12 rounded-xl"
+                      >
                         <SelectValue placeholder="Selecciona el tipo de proyecto" />
                       </SelectTrigger>
                       <SelectContent>
                         {projectTypes.map((type) => (
-                          <SelectItem key={type} value={type.toLowerCase().replace(/\s+/g, '-')}>
+                          <SelectItem key={type} value={type}>
                             {type}
                           </SelectItem>
                         ))}
@@ -169,18 +223,25 @@ export function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
                     </Select>
                   </div>
 
-                  {/* Volume */}
+                  {/* Volumen Estimado */}
                   <div>
-                    <label htmlFor="volume" className="block text-sm font-medium mb-2 text-[#000066]">
+                    <label htmlFor="volumen-estimado" className="block text-sm font-medium mb-2 text-[#000066]">
                       Volumen Estimado
                     </label>
-                    <Select required>
-                      <SelectTrigger className="bg-gray-50 border-gray-200 focus:border-[#ff0000] h-12 rounded-xl">
+                    <Select
+                      required
+                      value={form.volumenEstimado}
+                      onValueChange={(value) => setForm({ ...form, volumenEstimado: value })}
+                    >
+                      <SelectTrigger
+                        id="volumen-estimado"
+                        className="bg-gray-50 border-gray-200 focus:border-[#ff0000] h-12 rounded-xl"
+                      >
                         <SelectValue placeholder="Selecciona el volumen estimado" />
                       </SelectTrigger>
                       <SelectContent>
                         {volumeOptions.map((option) => (
-                          <SelectItem key={option} value={option.toLowerCase().replace(/\s+/g, '-')}>
+                          <SelectItem key={option} value={option}>
                             {option}
                           </SelectItem>
                         ))}
@@ -188,18 +249,34 @@ export function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
                     </Select>
                   </div>
 
+                  {/* Comentarios */}
+                  <div>
+                    <label htmlFor="comentarios" className="block text-sm font-medium mb-2 text-[#000066]">
+                      Comentarios
+                    </label>
+                    <Textarea
+                      id="comentarios"
+                      name="Comentarios"
+                      placeholder="Cuéntanos más sobre tu proyecto, fechas de entrega, archivos a producir, etc."
+                      rows={4}
+                      value={form.comentarios}
+                      onChange={(e) => setForm({ ...form, comentarios: e.target.value })}
+                      className="bg-gray-50 border-gray-200 focus:border-[#ff0000] min-h-28 rounded-xl resize-none"
+                    />
+                  </div>
+
                   {/* Submit Button */}
-                  <Button 
-                    type="submit" 
-                    size="lg" 
+                  <Button
+                    type="submit"
+                    size="lg"
                     className="w-full bg-[#ff0000] hover:bg-[#dd0000] text-white h-14 text-base font-semibold rounded-xl group"
                   >
-                    Solicitar Cotizacion
+                    Solicitar Cotización
                     <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
                   </Button>
 
                   <p className="text-xs text-center text-gray-400">
-                    Al enviar, aceptas nuestros terminos de servicio y politica de privacidad.
+                    Al enviar, aceptas nuestros términos de servicio y política de privacidad.
                   </p>
                 </form>
               )}
