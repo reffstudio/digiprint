@@ -1,60 +1,198 @@
 "use client"
 
-import { motion } from "framer-motion"
-import { Scissors, ImageIcon, Frame, Building2 } from "lucide-react"
+import { useCallback, useEffect, useRef, useState } from "react"
 import Image from "next/image"
+import { motion } from "framer-motion"
+import {
+  Scissors,
+  ImageIcon,
+  Frame,
+  Building2,
+  Sticker,
+  PanelTop,
+  CarFront,
+  Shirt,
+  ChevronLeft,
+  ChevronRight,
+} from "lucide-react"
 
 const services = [
   {
     title: "Vinil Industrial y Stickers",
-    description: "Tecnologia de corte de precision para produccion de alto volumen. Perfecto para rotulacion vehicular, etiquetas de productos e instalaciones de marca.",
-    icon: Scissors,
-    size: "large",
-    gradient: "from-primary/20 to-transparent",
-    image: "/images/service-vinyl.jpg",
+    description: "Corte de precisión para etiquetas, calcomanías y producción de alto volumen.",
+    icon: Sticker,
   },
   {
-    title: "Gran Formato en Alta Definicion",
-    description: "Lonas, banners e impresiones a gran escala con excepcional precision de color y durabilidad.",
+    title: "Gran Formato y Lonas",
+    description: "Lonas, banners y vallas con color de alta fidelidad para exteriores e interiores.",
     icon: ImageIcon,
-    size: "medium",
-    gradient: "from-blue-500/10 to-transparent",
-    image: "/images/service-largeformat.jpg",
   },
   {
-    title: "Posters Fine-Art y Giclee",
-    description: "Impresiones de calidad museo en sustratos premium para exposiciones y coleccionistas.",
+    title: "Rotulación Vehicular",
+    description: "Wrap completo y rotulado parcial para flotillas, vans, food trucks y unidades comerciales.",
+    icon: CarFront,
+  },
+  {
+    title: "Señalética Arquitectónica",
+    description: "Letreros, directorios y señalización corporativa instalada llave en mano.",
+    icon: PanelTop,
+  },
+  {
+    title: "Posters y Fine-Art Giclée",
+    description: "Impresión calidad museo en sustratos premium para campañas, retail y galerías.",
     icon: Frame,
-    size: "medium",
-    gradient: "from-purple-500/10 to-transparent",
-    image: "/images/service-fineart.jpg",
   },
   {
-    title: "Branding Corporativo Personalizado",
-    description: "Produccion integral de activos de marca desde tarjetas de presentacion hasta senalizacion arquitectonica.",
+    title: "Branding Corporativo Integral",
+    description: "Producción de identidad: tarjetas, papelería, displays y experiencia de marca.",
     icon: Building2,
-    size: "large",
-    gradient: "from-emerald-500/10 to-transparent",
-    image: "/images/service-branding.jpg",
+  },
+  {
+    title: "Microperforado y Window Graphics",
+    description: "Aplicaciones en vidrio, escaparates y oficinas con visibilidad de un solo sentido.",
+    icon: Scissors,
+  },
+  {
+    title: "Textiles y Merchandising",
+    description: "DTF, sublimación y bordado para uniformes, playeras y artículos promocionales.",
+    icon: Shirt,
   },
 ]
 
-const containerVariants = {
+const installations = Array.from({ length: 12 }, (_, i) => {
+  const n = String(i + 1).padStart(2, "0")
+  return {
+    src: `/installations/instalacion-${n}.jpg`,
+    alt: `Instalación DigiPrint ${i + 1}`,
+  }
+})
+
+function InstallationsSlideshow() {
+  const [index, setIndex] = useState(0)
+  const [isHovered, setIsHovered] = useState(false)
+  const thumbsRef = useRef<HTMLDivElement>(null)
+  const total = installations.length
+
+  const goTo = useCallback(
+    (next: number) => {
+      setIndex(((next % total) + total) % total)
+    },
+    [total],
+  )
+
+  const next = useCallback(() => goTo(index + 1), [goTo, index])
+  const prev = useCallback(() => goTo(index - 1), [goTo, index])
+
+  useEffect(() => {
+    if (isHovered) return
+    const id = setInterval(() => {
+      setIndex((current) => (current + 1) % total)
+    }, 4500)
+    return () => clearInterval(id)
+  }, [isHovered, total])
+
+  useEffect(() => {
+    const thumb = thumbsRef.current?.querySelector<HTMLButtonElement>(
+      `[data-thumb-index="${index}"]`,
+    )
+    thumb?.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" })
+  }, [index])
+
+  return (
+    <div
+      className="relative w-full"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      {/* Main image */}
+      <div className="relative aspect-[16/9] w-full overflow-hidden rounded-2xl bg-foreground/5">
+        {installations.map((image, i) => (
+          <Image
+            key={image.src}
+            src={image.src}
+            alt={image.alt}
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1280px) 90vw, 1200px"
+            priority={i === 0}
+            className={`object-cover transition-opacity duration-700 ${
+              i === index ? "opacity-100" : "opacity-0"
+            }`}
+          />
+        ))}
+
+        {/* Arrows */}
+        <button
+          type="button"
+          onClick={prev}
+          aria-label="Imagen anterior"
+          className="absolute left-3 md:left-5 top-1/2 -translate-y-1/2 z-10 flex h-10 w-10 md:h-12 md:w-12 items-center justify-center rounded-full bg-white/85 backdrop-blur-sm text-[#000066] shadow-lg hover:bg-white transition-colors"
+        >
+          <ChevronLeft className="h-5 w-5 md:h-6 md:w-6" />
+        </button>
+        <button
+          type="button"
+          onClick={next}
+          aria-label="Imagen siguiente"
+          className="absolute right-3 md:right-5 top-1/2 -translate-y-1/2 z-10 flex h-10 w-10 md:h-12 md:w-12 items-center justify-center rounded-full bg-white/85 backdrop-blur-sm text-[#000066] shadow-lg hover:bg-white transition-colors"
+        >
+          <ChevronRight className="h-5 w-5 md:h-6 md:w-6" />
+        </button>
+
+        {/* Counter */}
+        <div className="absolute bottom-3 right-3 md:bottom-4 md:right-4 rounded-full bg-black/55 backdrop-blur-sm px-3 py-1 text-xs font-medium text-white">
+          {index + 1} / {total}
+        </div>
+      </div>
+
+      {/* Thumbnails */}
+      <div
+        ref={thumbsRef}
+        className="mt-4 flex gap-2 md:gap-3 overflow-x-auto pb-2 scrollbar-thin"
+      >
+        {installations.map((image, i) => (
+          <button
+            key={`thumb-${image.src}`}
+            type="button"
+            data-thumb-index={i}
+            onClick={() => goTo(i)}
+            aria-label={`Ir a la imagen ${i + 1}`}
+            aria-current={i === index}
+            className={`relative shrink-0 overflow-hidden rounded-lg transition-all duration-300 h-14 w-20 md:h-16 md:w-24 ${
+              i === index
+                ? "ring-2 ring-[#000066] opacity-100"
+                : "opacity-60 hover:opacity-100"
+            }`}
+          >
+            <Image
+              src={image.src}
+              alt=""
+              fill
+              sizes="96px"
+              className="object-cover"
+            />
+          </button>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+const listVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.1,
+      staggerChildren: 0.05,
     },
   },
 }
 
 const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
+  hidden: { opacity: 0, y: 12 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.5 },
+    transition: { duration: 0.4 },
   },
 }
 
@@ -68,7 +206,7 @@ export function ServicesBentoGrid() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-12 md:mb-16"
         >
           <h2 className="text-3xl md:text-4xl font-bold mb-4 text-balance">
             Servicios de Produccion Premium
@@ -78,66 +216,50 @@ export function ServicesBentoGrid() {
           </p>
         </motion.div>
 
-        {/* Bento Grid */}
-        <motion.div
-          variants={containerVariants}
+        {/* Services list */}
+        <motion.ul
+          variants={listVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 auto-rows-[200px]"
+          viewport={{ once: true, margin: "-80px" }}
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-14 md:mb-20"
         >
-          {services.map((service, index) => {
+          {services.map((service) => {
             const Icon = service.icon
-            const isLarge = service.size === "large"
-            
             return (
-              <motion.div
+              <motion.li
                 key={service.title}
                 variants={itemVariants}
-                className={`
-                  group relative glass rounded-2xl overflow-hidden
-                  hover:border-primary/30 transition-all duration-500
-                  ${isLarge ? "lg:col-span-2 lg:row-span-2" : "lg:col-span-1 lg:row-span-1"}
-                `}
+                className="group relative flex flex-col gap-3 rounded-2xl border border-border/60 bg-background/40 p-5 hover:border-primary/40 hover:bg-background/60 transition-colors"
               >
-                {/* Background Image */}
-                <div className="absolute inset-0">
-                  <Image
-                    src={service.image}
-                    alt={service.title}
-                    fill
-                    className="object-cover opacity-40 group-hover:opacity-60 group-hover:scale-105 transition-all duration-700"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-background/40" />
+                <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary/10 text-primary group-hover:bg-primary/20 transition-colors">
+                  <Icon className="h-5 w-5" />
                 </div>
-
-                {/* Background gradient overlay */}
-                <div className={`absolute inset-0 bg-gradient-to-br ${service.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
-                
-                {/* Content */}
-                <div className="relative z-10 h-full flex flex-col p-6">
-                  <div className="mb-4">
-                    <div className="w-12 h-12 rounded-xl bg-primary/10 backdrop-blur-sm flex items-center justify-center group-hover:bg-primary/20 transition-colors duration-300">
-                      <Icon className="w-6 h-6 text-primary" />
-                    </div>
-                  </div>
-                  
-                  <div className="mt-auto">
-                    <h3 className={`font-semibold mb-2 ${isLarge ? "text-xl md:text-2xl" : "text-lg"}`}>
-                      {service.title}
-                    </h3>
-                    
-                    <p className={`text-muted-foreground leading-relaxed ${isLarge ? "text-base" : "text-sm"}`}>
-                      {service.description}
-                    </p>
-                  </div>
+                <div>
+                  <h3 className="text-base md:text-lg font-semibold mb-1.5">{service.title}</h3>
+                  <p className="text-sm leading-relaxed text-muted-foreground">{service.description}</p>
                 </div>
-
-                {/* Corner accent */}
-                <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              </motion.div>
+              </motion.li>
             )
           })}
+        </motion.ul>
+
+        {/* Slideshow */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.6 }}
+        >
+          <div className="mb-6 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-2">
+            <div>
+              <h3 className="text-xl md:text-2xl font-semibold">Nuestras instalaciones en campo</h3>
+              <p className="text-sm md:text-base text-muted-foreground">
+                Producción, montaje y aplicación profesional para clientes en toda la región.
+              </p>
+            </div>
+          </div>
+          <InstallationsSlideshow />
         </motion.div>
       </div>
     </section>
