@@ -25,12 +25,12 @@ const logos = [
 
 function ClientLogo({ name, src }: { name: string; src: string }) {
   return (
-    <div className="group relative flex items-center justify-center h-10 md:h-12 w-24 md:w-32 shrink-0 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300">
+    <div className="relative flex items-center justify-center h-10 md:h-12 w-20 md:w-28 shrink-0">
       <Image
         src={src}
         alt={name}
         fill
-        sizes="(max-width: 768px) 96px, 128px"
+        sizes="(max-width: 768px) 80px, 112px"
         className="object-contain"
       />
     </div>
@@ -153,13 +153,13 @@ export function HeroSection() {
             {/* Marquee */}
             <div className="flex animate-marquee">
               {/* First set */}
-              <div className="flex items-center gap-6 md:gap-10 shrink-0">
+              <div className="flex items-center gap-3 md:gap-5 shrink-0">
                 {logos.map((logo, index) => (
                   <ClientLogo key={`first-${index}`} name={logo.name} src={logo.src} />
                 ))}
               </div>
               {/* Duplicate for seamless loop */}
-              <div className="flex items-center gap-6 md:gap-10 shrink-0 ml-6 md:ml-10">
+              <div className="flex items-center gap-3 md:gap-5 shrink-0 ml-3 md:ml-5">
                 {logos.map((logo, index) => (
                   <ClientLogo key={`second-${index}`} name={logo.name} src={logo.src} />
                 ))}

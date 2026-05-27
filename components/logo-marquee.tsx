@@ -21,12 +21,12 @@ const logos = [
 
 function ClientLogo({ name, src }: { name: string; src: string }) {
   return (
-    <div className="group relative flex items-center justify-center h-16 w-40 shrink-0 grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-300">
+    <div className="relative flex items-center justify-center h-14 w-32 shrink-0">
       <Image
         src={src}
         alt={name}
         fill
-        sizes="160px"
+        sizes="128px"
         className="object-contain"
       />
     </div>
@@ -56,13 +56,13 @@ export function LogoMarquee() {
         {/* Marquee */}
         <div className="flex animate-marquee">
           {/* First set */}
-          <div className="flex items-center gap-12 shrink-0">
+          <div className="flex items-center gap-6 shrink-0">
             {logos.map((logo, index) => (
               <ClientLogo key={`first-${index}`} name={logo.name} src={logo.src} />
             ))}
           </div>
           {/* Duplicate for seamless loop */}
-          <div className="flex items-center gap-12 shrink-0 ml-12">
+          <div className="flex items-center gap-6 shrink-0 ml-6">
             {logos.map((logo, index) => (
               <ClientLogo key={`second-${index}`} name={logo.name} src={logo.src} />
             ))}
