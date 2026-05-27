@@ -12,7 +12,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import { ArrowRight, CheckCircle2, X } from "lucide-react"
+import { ArrowRight, CheckCircle2, Loader2, X } from "lucide-react"
+
+const QUOTE_WEBHOOK_URL =
+  process.env.NEXT_PUBLIC_QUOTE_WEBHOOK_URL ||
+  "https://script.google.com/macros/s/AKfycbw07FyWO8iV6I0vRA3S_RqSCBPV95Oxm9e08DtTXr83pTza35Dn8ujg8VwKypigJKDz/exec"
 
 const projectTypes = [
   "Vinil Industrial y Stickers",
@@ -56,10 +60,16 @@ const initialFormState: FormState = {
 
 export function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitError, setSubmitError] = useState<string | null>(null)
   const [form, setForm] = useState<FormState>(initialFormState)
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    if (isSubmitting) return
+
+    setIsSubmitting(true)
+    setSubmitError(null)
 
     const payload = {
       "Tiempo de captura": new Date().toISOString(),
@@ -71,14 +81,29 @@ export function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
       "Comentarios": form.comentarios,
     }
 
-    // TODO: enviar `payload` al endpoint conectado al Google Sheet
-    console.log("Quote submission", payload)
-
-    setIsSubmitted(true)
+    try {
+      await fetch(QUOTE_WEBHOOK_URL, {
+        method: "POST",
+        mode: "no-cors",
+        headers: {
+          "Content-Type": "text/plain;charset=utf-8",
+        },
+        body: JSON.stringify(payload),
+      })
+      setIsSubmitted(true)
+    } catch (err) {
+      console.error("Quote submission failed", err)
+      setSubmitError(
+        "No pudimos enviar tu solicitud. Inténtalo de nuevo o escríbenos a hola@digiprint.mx.",
+      )
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   const handleClose = () => {
     setIsSubmitted(false)
+    setSubmitError(null)
     setForm(initialFormState)
     onClose()
   }
@@ -159,7 +184,7 @@ export function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
                       required
                       value={form.nombreEmpresa}
                       onChange={(e) => setForm({ ...form, nombreEmpresa: e.target.value })}
-                      className="bg-gray-50 border-gray-200 focus:border-[#ff0000] h-12 rounded-xl"
+                      className="bg-gray-50 border-gray-200 text-[#000066] placeholder:text-gray-400 focus:border-[#ff0000] h-12 rounded-xl"
                     />
                   </div>
 
@@ -176,7 +201,7 @@ export function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
                       required
                       value={form.correoElectronico}
                       onChange={(e) => setForm({ ...form, correoElectronico: e.target.value })}
-                      className="bg-gray-50 border-gray-200 focus:border-[#ff0000] h-12 rounded-xl"
+                      className="bg-gray-50 border-gray-200 text-[#000066] placeholder:text-gray-400 focus:border-[#ff0000] h-12 rounded-xl"
                     />
                   </div>
 
@@ -193,7 +218,7 @@ export function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
                       required
                       value={form.numeroTelefono}
                       onChange={(e) => setForm({ ...form, numeroTelefono: e.target.value })}
-                      className="bg-gray-50 border-gray-200 focus:border-[#ff0000] h-12 rounded-xl"
+                      className="bg-gray-50 border-gray-200 text-[#000066] placeholder:text-gray-400 focus:border-[#ff0000] h-12 rounded-xl"
                     />
                   </div>
 
@@ -209,7 +234,7 @@ export function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
                     >
                       <SelectTrigger
                         id="tipo-proyecto"
-                        className="bg-gray-50 border-gray-200 focus:border-[#ff0000] h-12 rounded-xl"
+                        className="bg-gray-50 border-gray-200 text-[#000066] data-[placeholder]:text-gray-400 focus:border-[#ff0000] h-12 rounded-xl"
                       >
                         <SelectValue placeholder="Selecciona el tipo de proyecto" />
                       </SelectTrigger>
@@ -235,7 +260,7 @@ export function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
                     >
                       <SelectTrigger
                         id="volumen-estimado"
-                        className="bg-gray-50 border-gray-200 focus:border-[#ff0000] h-12 rounded-xl"
+                        className="bg-gray-50 border-gray-200 text-[#000066] data-[placeholder]:text-gray-400 focus:border-[#ff0000] h-12 rounded-xl"
                       >
                         <SelectValue placeholder="Selecciona el volumen estimado" />
                       </SelectTrigger>
@@ -261,7 +286,7 @@ export function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
                       rows={4}
                       value={form.comentarios}
                       onChange={(e) => setForm({ ...form, comentarios: e.target.value })}
-                      className="bg-gray-50 border-gray-200 focus:border-[#ff0000] min-h-28 rounded-xl resize-none"
+                      className="bg-gray-50 border-gray-200 text-[#000066] placeholder:text-gray-400 focus:border-[#ff0000] min-h-28 rounded-xl resize-none"
                     />
                   </div>
 
@@ -269,11 +294,25 @@ export function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
                   <Button
                     type="submit"
                     size="lg"
-                    className="w-full bg-[#ff0000] hover:bg-[#dd0000] text-white h-14 text-base font-semibold rounded-xl group"
+                    disabled={isSubmitting}
+                    className="w-full bg-[#ff0000] hover:bg-[#dd0000] text-white h-14 text-base font-semibold rounded-xl group disabled:opacity-70 disabled:cursor-not-allowed"
                   >
-                    Solicitar Cotización
-                    <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
+                    {isSubmitting ? (
+                      <>
+                        <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                        Enviando...
+                      </>
+                    ) : (
+                      <>
+                        Solicitar Cotización
+                        <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
+                      </>
+                    )}
                   </Button>
+
+                  {submitError && (
+                    <p className="text-xs text-center text-[#ff0000]">{submitError}</p>
+                  )}
 
                   <p className="text-xs text-center text-gray-400">
                     Al enviar, aceptas nuestros términos de servicio y política de privacidad.
