@@ -1,6 +1,6 @@
 "use client"
 
-import { useCallback, useEffect, useRef, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import Image from "next/image"
 import { motion } from "framer-motion"
 import {
@@ -70,7 +70,6 @@ const installations = Array.from({ length: 12 }, (_, i) => {
 function InstallationsSlideshow() {
   const [index, setIndex] = useState(0)
   const [isHovered, setIsHovered] = useState(false)
-  const thumbsRef = useRef<HTMLDivElement>(null)
   const total = installations.length
 
   const goTo = useCallback(
@@ -90,13 +89,6 @@ function InstallationsSlideshow() {
     }, 4500)
     return () => clearInterval(id)
   }, [isHovered, total])
-
-  useEffect(() => {
-    const thumb = thumbsRef.current?.querySelector<HTMLButtonElement>(
-      `[data-thumb-index="${index}"]`,
-    )
-    thumb?.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" })
-  }, [index])
 
   return (
     <div
@@ -146,7 +138,6 @@ function InstallationsSlideshow() {
 
       {/* Thumbnails */}
       <div
-        ref={thumbsRef}
         className="mt-4 flex gap-2 md:gap-3 overflow-x-auto pb-2 scrollbar-thin"
       >
         {installations.map((image, i) => (
