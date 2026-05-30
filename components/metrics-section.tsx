@@ -2,33 +2,30 @@
 
 import { motion, useMotionValue, useTransform, animate } from "framer-motion"
 import { useEffect } from "react"
-import { BarChart3, Shield, HeadphonesIcon } from "lucide-react"
+import { CalendarDays, Building2, TrendingUp } from "lucide-react"
 
 const stats = [
   {
-    value: 10000,
-    suffix: "+",
-    unit: "m2",
-    label: "Impresos Mensualmente",
-    icon: BarChart3,
+    value: 10,
+    prefix: "+",
+    label: "Años de experiencia",
+    icon: CalendarDays,
   },
   {
     value: 100,
-    suffix: "%",
-    unit: "",
-    label: "Calidad Cero Tolerancia",
-    icon: Shield,
+    prefix: "+",
+    label: "Empresas representadas",
+    icon: Building2,
   },
   {
-    value: 24,
-    suffix: "/7",
-    unit: "",
-    label: "Soporte Corporativo Tier-1",
-    icon: HeadphonesIcon,
+    value: 8,
+    prefix: "+",
+    label: "Proyectos sumados cada año",
+    icon: TrendingUp,
   },
 ]
 
-function AnimatedNumber({ value, suffix, unit }: { value: number; suffix: string; unit: string }) {
+function AnimatedNumber({ value, prefix }: { value: number; prefix?: string }) {
   const count = useMotionValue(0)
   const rounded = useTransform(count, (latest) => {
     if (value >= 1000) {
@@ -43,10 +40,9 @@ function AnimatedNumber({ value, suffix, unit }: { value: number; suffix: string
   }, [count, value])
 
   return (
-    <span className="inline-flex items-baseline justify-center gap-1">
+    <span className="inline-flex items-baseline justify-center">
+      {prefix && <span className="text-primary mr-0.5">{prefix}</span>}
       <motion.span>{rounded}</motion.span>
-      {suffix && <span className="text-primary">{suffix}</span>}
-      {unit && <span className="text-2xl md:text-3xl ml-1 text-muted-foreground">{unit}</span>}
     </span>
   )
 }
@@ -93,7 +89,7 @@ export function MetricsSection() {
                   </div>
 
                   <div className="text-4xl md:text-5xl font-bold mb-2 flex items-baseline justify-center">
-                    <AnimatedNumber value={stat.value} suffix={stat.suffix} unit={stat.unit} />
+                    <AnimatedNumber value={stat.value} prefix={stat.prefix} />
                   </div>
 
                   <p className="text-muted-foreground font-medium">
