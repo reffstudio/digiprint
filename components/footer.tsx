@@ -17,7 +17,7 @@ export function Footer() {
           transition={{ duration: 0.5 }}
           className="text-3xl md:text-4xl lg:text-5xl font-bold text-center text-[#000066] mb-8 text-balance"
         >
-          Impresion de Precision para Marcas que Exigen Excelencia
+          Impresión de Precisión para Marcas que Exigen Excelencia
         </motion.h2>
 
         {/* Contact Row */}
@@ -30,11 +30,11 @@ export function Footer() {
         >
           {/* Phone Pill */}
           <a 
-            href="tel:+526641234567"
+            href="tel:+526646070369"
             className="flex items-center gap-2 px-5 py-2.5 rounded-full border border-[#000066]/20 hover:border-[#000066]/40 transition-colors text-sm text-[#000066]"
           >
             <Phone className="w-4 h-4" />
-            <span>+52 (664) 123-4567</span>
+            <span>+52 (664) 607-0369</span>
           </a>
 
           {/* Social Icons */}
@@ -65,11 +65,11 @@ export function Footer() {
 
           {/* Email Pill */}
           <a 
-            href="mailto:hola@digiprint.mx"
+            href="mailto:administracion@digiprint.mx"
             className="flex items-center gap-2 px-5 py-2.5 rounded-full border border-[#000066]/20 hover:border-[#000066]/40 transition-colors text-sm text-[#000066]"
           >
             <Mail className="w-4 h-4" />
-            <span>hola@digiprint.mx</span>
+            <span>administracion@digiprint.mx</span>
           </a>
         </motion.div>
 

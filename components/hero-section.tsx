@@ -8,19 +8,19 @@ import { SlideToQuote } from "./slide-to-quote"
 import { QuoteModal } from "./quote-modal"
 
 const logos = [
-  { name: "Copachisa", src: "/clients/copachisa.jpg" },
-  { name: "CW", src: "/clients/cw.png" },
-  { name: "Hospital Infantil de las Californias", src: "/clients/hospital-idlc.jpg" },
-  { name: "El Rooster", src: "/clients/el-rooster.jpg" },
-  { name: "Agredanos", src: "/clients/agredanos.jpg" },
-  { name: "Interceramic", src: "/clients/interceramic.png" },
-  { name: "Gandhi", src: "/clients/gandhi.jpg" },
-  { name: "SuKarne", src: "/clients/sukarne.jpg" },
-  { name: "Visada MX", src: "/clients/visada-mx.png" },
-  { name: "Ink Agency", src: "/clients/ink-agency.jpg" },
-  { name: "CSI Creative", src: "/clients/csi-creative.jpg" },
-  { name: "G Global", src: "/clients/g-global.png" },
-  { name: "Alfa K9", src: "/clients/alfa-k9.jpg" },
+  { name: "Copachisa", src: "/clients/COPACHISA.png" },
+  { name: "CW", src: "/clients/CW.png" },
+  { name: "Hospital Infantil de las Californias", src: "/clients/HIDLC.png" },
+  { name: "El Rooster", src: "/clients/El Rooster.png" },
+  { name: "Agredanos", src: "/clients/AGREDANOS.png" },
+  { name: "Interceramic", src: "/clients/INTERCERAMIC.png" },
+  { name: "Gandhi", src: "/clients/GANDHI.png" },
+  { name: "SuKarne", src: "/clients/SUKARNE.png" },
+  { name: "Visada MX", src: "/clients/VISADA MX.png" },
+  { name: "Ink Agency", src: "/clients/INK.png" },
+  { name: "CSI Creative", src: "/clients/CSi.png" },
+  { name: "G Global", src: "/clients/G-GLOBAL.png" },
+  { name: "Alfa K9", src: "/clients/ALFA K9.png" },
 ]
 
 function ClientLogo({ name, src }: { name: string; src: string }) {
@@ -95,7 +95,7 @@ export function HeroSection() {
               className="flex flex-col gap-3 md:gap-4"
             >
               <p className="text-[#000066]/70 text-sm md:text-base leading-relaxed">
-                Combinamos tecnologia de punta, trabajo meticuloso y compromiso con la excelencia para entregar resultados de alta calidad en cada proyecto.
+                Combinamos tecnología de punta, trabajo meticuloso y compromiso con la excelencia para entregar resultados de alta calidad en cada proyecto.
               </p>
               <a 
                 href="#servicios" 

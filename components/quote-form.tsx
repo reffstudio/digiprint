@@ -15,17 +15,17 @@ import { Upload, ArrowRight, CheckCircle2 } from "lucide-react"
 
 const projectTypes = [
   "Vinil Industrial y Stickers",
-  "Impresion Gran Formato",
-  "Impresiones Fine-Art y Giclee",
+  "Impresión Gran Formato",
+  "Impresiones Fine-Art y Giclée",
   "Paquete de Branding Corporativo",
   "Proyecto Personalizado",
 ]
 
 const volumeOptions = [
-  "Pequeno (Menos de 50 m2)",
-  "Mediano (50-200 m2)",
-  "Grande (200-500 m2)",
-  "Industrial (500+ m2)",
+  "Pequeño (Menos de 50 m²)",
+  "Mediano (50-200 m²)",
+  "Grande (200-500 m²)",
+  "Industrial (500+ m²)",
 ]
 
 export function QuoteForm() {
@@ -77,10 +77,10 @@ export function QuoteForm() {
           className="text-center mb-16"
         >
           <h2 className="text-3xl md:text-4xl font-bold mb-4 text-balance">
-            Servicio de Cotizacion Concierge
+            Servicio de Cotización Concierge
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Solicita una sesion informativa personalizada con nuestros especialistas
+            Solicita una sesión informativa personalizada con nuestros especialistas
           </p>
         </motion.div>
 
@@ -103,7 +103,7 @@ export function QuoteForm() {
                 </div>
                 <h3 className="text-2xl font-bold mb-2">Solicitud Recibida</h3>
                 <p className="text-muted-foreground">
-                  Nuestro equipo te contactara en las proximas 24 horas con una sesion informativa personalizada.
+                  Nuestro equipo te contactará en las próximas 24 horas con una sesión informativa personalizada.
                 </p>
               </motion.div>
             ) : (
@@ -204,12 +204,12 @@ export function QuoteForm() {
                   size="lg" 
                   className="w-full bg-primary hover:bg-primary/90 text-primary-foreground h-14 text-base font-semibold group"
                 >
-                  Solicitar Sesion Corporativa
+                  Solicitar Sesión Corporativa
                   <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
                 </Button>
 
                 <p className="text-xs text-center text-muted-foreground/70">
-                  Al enviar, aceptas nuestros terminos de servicio y politica de privacidad.
+                  Al enviar, aceptas nuestros términos de servicio y política de privacidad.
                 </p>
               </form>
             )}

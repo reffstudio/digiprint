@@ -30,10 +30,10 @@ const projectTypes = [
 ]
 
 const volumeOptions = [
-  "Pequeño (Menos de 50 m2)",
-  "Mediano (50-200 m2)",
-  "Grande (200-500 m2)",
-  "Industrial (500+ m2)",
+  "Pequeño (Menos de 50 m²)",
+  "Mediano (50-200 m²)",
+  "Grande (200-500 m²)",
+  "Industrial (500+ m²)",
 ]
 
 interface QuoteModalProps {
@@ -95,7 +95,7 @@ export function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
     } catch (err) {
       console.error("Quote submission failed", err)
       setSubmitError(
-        "No pudimos enviar tu solicitud. Inténtalo de nuevo o escríbenos a hola@digiprint.mx.",
+        "No pudimos enviar tu solicitud. Inténtalo de nuevo o escríbenos a administracion@digiprint.mx.",
       )
     } finally {
       setIsSubmitting(false)
@@ -215,7 +215,7 @@ export function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
                       id="numero-telefono"
                       name="Número de teléfono"
                       type="tel"
-                      placeholder="+52 664 123 4567"
+                      placeholder="+52 664 607 0369"
                       required
                       value={form.numeroTelefono}
                       onChange={(e) => setForm({ ...form, numeroTelefono: e.target.value })}
