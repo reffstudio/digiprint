@@ -62,7 +62,7 @@ const services = [
 const installations = Array.from({ length: 12 }, (_, i) => {
   const n = String(i + 1).padStart(2, "0")
   return {
-    src: `/installations/instalacion-${n}.jpg`,
+    src: `/installations/instalacion-${n}.webp`,
     alt: `Instalación DigiPrint ${i + 1}`,
   }
 })

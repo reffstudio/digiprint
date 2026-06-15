@@ -4,19 +4,19 @@ import { motion } from "framer-motion"
 import Image from "next/image"
 
 const logos = [
-  { name: "Copachisa", src: "/clients/COPACHISA.png" },
-  { name: "CW", src: "/clients/CW.png" },
-  { name: "Hospital Infantil de las Californias", src: "/clients/HIDLC.png" },
-  { name: "El Rooster", src: "/clients/El Rooster.png" },
-  { name: "Agredanos", src: "/clients/AGREDANOS.png" },
-  { name: "Interceramic", src: "/clients/INTERCERAMIC.png" },
-  { name: "Gandhi", src: "/clients/GANDHI.png" },
-  { name: "SuKarne", src: "/clients/SUKARNE.png" },
-  { name: "Visada MX", src: "/clients/VISADA MX.png" },
-  { name: "Ink Agency", src: "/clients/INK.png" },
-  { name: "CSI Creative", src: "/clients/CSi.png" },
-  { name: "G Global", src: "/clients/G-GLOBAL.png" },
-  { name: "Alfa K9", src: "/clients/ALFA K9.png" },
+  { name: "Copachisa", src: "/clients/COPACHISA.webp" },
+  { name: "CW", src: "/clients/CW.webp" },
+  { name: "Hospital Infantil de las Californias", src: "/clients/HIDLC.webp" },
+  { name: "El Rooster", src: "/clients/El Rooster.webp" },
+  { name: "Agredanos", src: "/clients/AGREDANOS.webp" },
+  { name: "Interceramic", src: "/clients/INTERCERAMIC.webp" },
+  { name: "Gandhi", src: "/clients/GANDHI.webp" },
+  { name: "SuKarne", src: "/clients/SUKARNE.webp" },
+  { name: "Visada MX", src: "/clients/VISADA MX.webp" },
+  { name: "Ink Agency", src: "/clients/INK.webp" },
+  { name: "CSI Creative", src: "/clients/CSi.webp" },
+  { name: "G Global", src: "/clients/G-GLOBAL.webp" },
+  { name: "Alfa K9", src: "/clients/ALFA K9.webp" },
 ]
 
 function ClientLogo({ name, src }: { name: string; src: string }) {
